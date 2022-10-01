@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+}
+
+body {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+@keyframes skeleton-bg-loading {
+  0% {
+    background-color: rgba(163, 163, 163, 0.2);
+  }
+  100% {
+    background-color: rgba(163, 163, 163, 0.4);
+  }
+}
+
+@keyframes skeleton-border-loading {
+  0% {
+    border-color: rgba(163, 163, 163, 0.2);
+  }
+  100% {
+    border-color: rgba(163, 163, 163, 0.4);
+  }
+}
