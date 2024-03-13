@@ -18,7 +18,8 @@ function Home() {
 
 export default Home;
 
-const darkModeBg = "background-color: rgb(32, 45, 54)";
+//const darkModeBg = "background-color: rgb(32, 45, 54)";
+const darkModeBg = "background-color: rgb(0,0,0)";
 const lightModeBg = "background-color: rgb(249, 249, 249)";
 
 const Container = styled.div`
