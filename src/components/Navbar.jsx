@@ -4,6 +4,7 @@ import { MdOutlineDarkMode } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setDarkMode, selectDarkMode } from "../features/ThemeSlice";
+import { MdOutlineQuiz } from "react-icons/md";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -20,6 +21,16 @@ function Navbar() {
       >
         <h2>Where in the world?</h2>
       </Title>
+
+      <Quiz
+        darkMode={darkMode}
+        onClick={() => {
+          navigate("/quiz");
+        }}
+      >
+        <MdOutlineQuiz />
+        <p>Start Quiz</p>
+      </Quiz>
 
       <Theme darkMode={darkMode}>
         <p onClick={() => dispatch(setDarkMode(!darkMode))}>
@@ -66,6 +77,31 @@ const Title = styled.div`
 
   @media screen and (max-width: 763px) {
     font-size: 10px;
+  }
+`;
+
+const Quiz = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
+
+  svg {
+    ${(props) => (props.darkMode ? darkModeColor : lightModeColor)};
+    margin-right: 5px;
+  }
+
+  p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ${(props) => (props.darkMode ? darkModeColor : lightModeColor)};
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 763px) {
+    font-size: 13px;
   }
 `;
 
