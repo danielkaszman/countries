@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { quiz } from "../Kerdesek";
@@ -8,14 +8,13 @@ const Quiz = () => {
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [showResult, setShowResult] = useState(false);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+  const [randomKerdesek, setRandomKerdesek] = useState([]);
   const [result, setResult] = useState({
     score: 0,
     correctAnswers: 0,
     wrongAnswers: 0,
   });
-
-  const { questions } = quiz;
-  const { question, choices, correctAnswer } = questions[activeQuestion];
+  const NumberOfQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const onClickNext = () => {
     setSelectedAnswerIndex(null);
@@ -32,7 +31,7 @@ const Quiz = () => {
             wrongAnswers: prev.wrongAnswers + 1,
           }
     );
-    if (activeQuestion !== questions.length - 1) {
+    if (activeQuestion !== NumberOfQuestions.length - 1) {
       setActiveQuestion((prev) => prev + 1);
     } else {
       setActiveQuestion(0);
@@ -42,7 +41,7 @@ const Quiz = () => {
 
   const onAnswerSelected = (answer, index) => {
     setSelectedAnswerIndex(index);
-    if (answer === correctAnswer) {
+    if (answer === randomKerdesek[activeQuestion].correctAnswer) {
       setSelectedAnswer(true);
     } else {
       setSelectedAnswer(false);
@@ -51,65 +50,87 @@ const Quiz = () => {
 
   const addLeadingZero = (number) => (number > 9 ? number : `0${number}`);
 
+  useEffect(() => {
+    const generateRandomQuestions = () => {
+      const randomizedQuestions = quiz.questions
+        .map((value) => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value)
+        .slice(0, 10);
+
+      setRandomKerdesek(randomizedQuestions);
+    };
+
+    generateRandomQuestions();
+  }, []);
+
   return (
     <Container>
-      <QuizContainer>
-        {!showResult ? (
-          <div>
+      {randomKerdesek ? (
+        <QuizContainer>
+          {!showResult ? (
             <div>
-              <ActiveQuestion>
-                {addLeadingZero(activeQuestion + 1)}
-              </ActiveQuestion>
-              <TotalQuestion>/{addLeadingZero(questions.length)}</TotalQuestion>
-            </div>
-            <h2>{question}</h2>
-            <ul>
-              {choices.map((answer, index) => (
-                <li
-                  onClick={() => onAnswerSelected(answer, index)}
-                  key={answer}
-                  className={
-                    selectedAnswerIndex === index ? "selected-answer" : null
-                  }
+              <div>
+                <ActiveQuestion>
+                  {addLeadingZero(activeQuestion + 1)}
+                </ActiveQuestion>
+                <TotalQuestion>/{NumberOfQuestions.length}</TotalQuestion>
+              </div>
+              <h2>{randomKerdesek[activeQuestion]?.question}</h2>
+              <ul>
+                {randomKerdesek[activeQuestion]?.choices.map(
+                  (answer, index) => (
+                    <li
+                      onClick={() => onAnswerSelected(answer, index)}
+                      key={answer}
+                      className={
+                        selectedAnswerIndex === index ? "selected-answer" : null
+                      }
+                    >
+                      {answer}
+                    </li>
+                  )
+                )}
+              </ul>
+              <div className="flex-right">
+                <button
+                  onClick={onClickNext}
+                  disabled={selectedAnswerIndex === null}
                 >
-                  {answer}
-                </li>
-              ))}
-            </ul>
-            <div className="flex-right">
-              <button
-                onClick={onClickNext}
-                disabled={selectedAnswerIndex === null}
-              >
-                {activeQuestion === questions.length - 1 ? "Finish" : "Next"}
-              </button>
+                  {activeQuestion === NumberOfQuestions - 1 ? "Finish" : "Next"}
+                </button>
+              </div>
             </div>
-          </div>
-        ) : (
-          <Result>
-            <h3>Result</h3>
-            <p>
-              Number of Question:{" "}
-              <span className="Total-Question">{questions.length}</span>
-            </p>
-            <p>
-              Total Score:
-              <span>
-                {" "}
-                {result.score}/{questions.length * 5}
-              </span>
-            </p>
-            <p>
-              Correct Answers:
-              <span className="Right-Answer"> {result.correctAnswers}</span>
-            </p>
-            <p>
-              Wrong Answers:
-              <span className="Wrong-Answer"> {result.wrongAnswers}</span>
-            </p>
-          </Result>
-        )}
-      </QuizContainer>
+          ) : (
+            <Result>
+              <h3>Result</h3>
+              <p>
+                Number of Question:{" "}
+                <span className="Total-Question">
+                  {NumberOfQuestions.length}
+                </span>
+              </p>
+              <p>
+                Total Score:
+                <span>
+                  {" "}
+                  {result.score}/{NumberOfQuestions.length * 5}
+                </span>
+              </p>
+              <p>
+                Correct Answers:
+                <span className="Right-Answer"> {result.correctAnswers}</span>
+              </p>
+              <p>
+                Wrong Answers:
+                <span className="Wrong-Answer"> {result.wrongAnswers}</span>
+              </p>
+            </Result>
+          )}
+        </QuizContainer>
+      ) : (
+        <h2>Pls wait!</h2>
+      )}
     </Container>
   );
 };

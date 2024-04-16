@@ -6,8 +6,8 @@ function CountryListSkeleton() {
 
   return (
     <>
-      {numberOfSkeletons.map(() => (
-        <Country>
+      {numberOfSkeletons.map((index) => (
+        <Country key={index}>
           <Img />
           <Info>
             <H2 />
