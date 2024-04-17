@@ -50,5 +50,61 @@ export const quiz = {
       choices: ["Europe", "Africa", "Asia"],
       correctAnswer: "Asia",
     },
+    {
+      question: "Where Republic of Mozambique is located?",
+      choices: ["Eastern Africa", "Western Africa", "South Africa"],
+      correctAnswer: "Eastern Africa",
+    },
+    {
+      question: "What is the capital of Republic of Zimbabwe?",
+      choices: ["Maputo", "Gaborone", "Harare"],
+      correctAnswer: "Harare",
+    },
+    {
+      question: "What currency is in use in Croatia?",
+      choices: ["Korona", "Euro", "Kuna"],
+      correctAnswer: "Euro",
+    },
+    {
+      question: "What is the official language in Bosnia and Herzegovina?",
+      choices: ["Bosnian", "Serbian", "Albanian"],
+      correctAnswer: "Bosnian",
+    },
+    {
+      question: "What is the capital of State of Kuwait?",
+      choices: ["Kuwait", "Riyadh", "Kuwait city"],
+      correctAnswer: "Kuwait city",
+    },
+    {
+      question: "What is the population of Federative Republic of Brazil",
+      choices: ["158 000 000", "213 000 000", "284 000 000"],
+      correctAnswer: "213 000 000",
+    },
+    {
+      question:
+        "What is the official language in Co-operative Republic of Guyana?",
+      choices: ["English", "Spanish", "Portuguese"],
+      correctAnswer: "English",
+    },
+    {
+      question:
+        "What is the official currency in Plurinational State of Bolivia?",
+      choices: [
+        "Bolivian dollar",
+        "United States dollar",
+        "Bolivian boliviano",
+      ],
+      correctAnswer: "Bolivian boliviano",
+    },
+    {
+      question: "Where New Zealand is located?",
+      choices: ["Oceania", "Asia", "Africa"],
+      correctAnswer: "Oceania",
+    },
+    {
+      question: "What is the population of Tuvalu?",
+      choices: ["24 000", "16 000", "12 000"],
+      correctAnswer: "12 000",
+    },
   ],
 };
